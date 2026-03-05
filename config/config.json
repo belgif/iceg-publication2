@@ -1,6 +1,6 @@
 {
   "primeLanguage": "nl",
-  "otherLanguages": ["en", "fr", "de"],
+  "otherLanguages": ["en"],
   "hostname": "https://belgif.github.io/",
   "domain": "vocab.belgif.be",
   "publicationpoints": ["dev"],
