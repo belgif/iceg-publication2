@@ -727,6 +727,6 @@ workflows:
                 - canceled
       # Make create-artifact depend only on expand-links (the final consolidation step)
       - create-artifact:
-          generatedRepoFingerprint: "SHA256:4z5hJXh2r+2cQVWc13onR3y+Z35PMBHKwJ52yRd/8JA"
+          generatedRepoFingerprint: "SHA256:jqogOxfBoXn91x4ndQk9lPN4tDFMJWJImlft/xnNd5w"
           requires:
             - expand-links
