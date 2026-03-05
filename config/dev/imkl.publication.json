@@ -1,6 +1,14 @@
 [
   {
-    "urlref": "thematic/models/imkl",
+    "urlref": "/thematic/models/imkl",
+    "repository": "https://github.com/belgif/ICEGthema-imkl",
+    "branchtag": "main",
+    "name": "cable-pipe",
+    "filename": "config/cable-pipe.json",
+    "dummy": "003"
+  },
+  {
+    "urlref": "/doc/applicatieprofiel/kabels-en-leidingen/erkendestandaard/2025-02-06",
     "repository": "https://github.com/belgif/ICEGthema-imkl",
     "branchtag": "main",
     "name": "cable-pipe",
