@@ -1,20 +1,14 @@
 {
-  "primeLanguage": "nl",
-  "otherLanguages": [
-    "en",
-    "fr",
-    "de"
-  ],
-  "hostname": "https://dev.specs.org/",
-  "domain": "data.spec.org",
-  "publicationpoints": [
-    "dev"
-  ],
+  "primeLanguage": "en",
+  "otherLanguages": ["en", "fr", "de"],
+  "hostname": "https://belgif.github.io/",
+  "domain": "vocab.belgif.be",
+  "publicationpoints": ["test"],
   "generatedrepository": {
-    "organisation": "GitHubOrganisation",
-    "repository": "GeneratedRepository",
+    "organisation": "belgif",
+    "repository": "iceg-generated2",
     "private": false,
-    "gitEmail": "toolchain@dev.specs.org",
+    "gitEmail": "toolchain@belgif.be",
     "gitUser": "toolchain"
   },
   "toolchainversion": "4.1.1",
