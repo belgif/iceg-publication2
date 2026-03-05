@@ -1,5 +1,5 @@
 {
-  "primeLanguage": "en",
+  "primeLanguage": "nl",
   "otherLanguages": ["en", "fr", "de"],
   "hostname": "https://belgif.github.io/",
   "domain": "vocab.belgif.be",
@@ -11,7 +11,7 @@
     "gitEmail": "toolchain@belgif.be",
     "gitUser": "toolchain"
   },
-  "toolchainversion": "4.1.1",
+  "toolchainversion": "4.2.0",
   "toolchain": {
     "strickness": "lazy",
     "version": 4,
