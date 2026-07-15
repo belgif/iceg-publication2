@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTDXHTML1.0Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xml:lang="{{ language }}" lang="{{ language }}" dir="ltr" typeof="bibo:Document " about="" property="dcterms:language" content="{{ language }}" prefix="dcterms: http://purl.org/dc/terms/ bibo: http://purl.org/ontology/bibo/ schema: http://schema.org/ w3p:
-            http://www.w3.org/2001/02pd/rec54#" xmlns="http://www.w3.org/1999/xhtml">
+                                                http://www.w3.org/2001/02pd/rec54#" xmlns="http://www.w3.org/1999/xhtml">
    <head>
       {% set name = data.metadata.title|lower|replace(' ', '-') %}
       <title>{{ data.metadata.title }}</title>
@@ -82,7 +82,9 @@
                               </dl>
                            </div>
                            <dl>
+                              {% if ( ( data.stakeholders.authors | length > 0)   ) %}
                               <dt>Autoren</dt>
+                              {% endif %}
                               {% set sortedAuthors = (data.stakeholders.authors | sort(attribute='lastName')) %}
                               {% for author in sortedAuthors %}
                                  <dd inlist="" rel="foaf:maker" class="p-author h-card vcard">
@@ -103,7 +105,9 @@
                                     </span>
                                  </dd>
                               {% endfor %}
+                              {% if ( ( data.stakeholders.editors | length > 0)   ) %}
                               <dt>Redakteure</dt>
+                              {% endif %}
                               {% set sortedEditors = (data.stakeholders.editors | sort(attribute='lastName')) %}
                               {% for editor in sortedEditors %}
                                  <dd inlist="" rel="foaf:maker" class="p-author h-card vcard">
@@ -124,7 +128,9 @@
                                     </span>
                                  </dd>
                               {% endfor %}
-                              <dt>Mitwirkende</dt>
+                              {% if ( ( data.stakeholders.contributors | length > 0)   ) %}
+                                 <dt>Mitwirkende</dt>
+                              {% endif %}
                               {% set sortedContributors = (data.stakeholders.contributors | sort(attribute='lastName')) %}
                               {% for contributor in sortedContributors %}
                                  <dd inlist="" rel="foaf:maker" class="p-author h-card vcard">
@@ -211,7 +217,7 @@
                         {% endblock %}
                      </div>
                      <div class="vl-region vl-region.vl-region--no-space-top vl-typography" id="status">
-                        <section class="introductory" id="sotd" typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter">
+                        <section class="vl-introduction" id="sotd" typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter">
                            <h2 class="vl-title--h2" aria-level="1" role="heading" id="h2_sotd">Status dieses Dokuments</h2>
                            {% block status %}
                               <p>
@@ -242,7 +248,7 @@
                                  xmlns:cc="http://creativecommons.org/ns#">Digitaal Vlaanderen</a>
                               wird unter dem
                               <a
-                                 href="https://overheid.vlaanderen.be/sites/default/files/documenten/ict-egov/licenties/hergebruik/modellicentie_gratis_hergebruik_v1_0.html"
+                                 href="https://data.vlaanderen.be/id/licentie/modellicentie-gratis-hergebruik/v1.0"
                                  rel="license">"Modelllizenz Kostenlose Wiederverwendung - v1.0"</a>
                               veröffentlicht.
                            </p>
@@ -281,7 +287,7 @@
                                  {% if ( ( data.dataTypes | length ) > 0 ) %}
                                     <div class="vl-region vl-region.vl-region--no-space-top">
                                        <p>
-                                          In diesem Dokument werden die folgenden Datentypen erläutert: <br/> |
+                                          In diesem Dokument werden die folgenden Datentypen erläutert:<br/> |
                                           {%- for dataType in data.dataTypes %}
                                              {% if dataType.applicationProfileLabel[language] %}
                                                 <a href="#{{ dataType.applicationProfileLabel[language] | generateAnchorTag() }}">
@@ -294,31 +300,29 @@
                                  {% endif %}
                               </div>
                            </div>
-                        </div>
-                        <div class="vl-region vl-region.vl-region--no-space-top">
-                           {% block images %}
-                              <a href="{{ data.metadata.documentroot }}/html/overview.jpg" target="_blank">
-                                 <img src="{{ data.metadata.documentroot }}/html/overview.jpg"/>
-                              </a>
-                           {% endblock %}
-                        </div>
-                        <div class="vl-region vl-region.vl-region--no-space-top">
-                           <h2 class="vl-title--h2">Entitäten</h2>
-                        </div>
-                        {% for entity in data.classes %}
-                           {% if entity.applicationProfileLabel[language] %}
-                              {% set entitylabel = entity.applicationProfileLabel[language] %}
-                           {% else %}
-                              {% set entitylabel = "ERROR" %}
-                           {% endif %}
                            <div class="vl-region vl-region.vl-region--no-space-top">
-                              <h3 class="vl-title--h3" id="{{ entity.id }}">
-                                 <a href="{{ entity.id }}" class="js-vl-tooltip" data-vl-tooltip-content="{{ entity.id }}" id="{{ entitylabel | generateAnchorTag() }}" data-vl-tooltip-placement="right">
-                                    {{ entitylabel }}</a>
-                              </h3>
-                              <div class="vl-region vl-region.vl-region--no-space-top">
-                                 <dl>
-                                    <dt>Beschreibung</dt>
+                              {% block images %}
+                                 <a href="{{ data.metadata.documentroot }}/html/overview.jpg" target="_blank">
+                                    <img src="{{ data.metadata.documentroot }}/html/overview.jpg"/>
+                                 </a>
+                              {% endblock %}
+                           </div>
+                           <div class="vl-region vl-region.vl-region--no-space-top">
+                              <h2 class="vl-title--h2">Entitäten</h2>
+                              {% for entity in data.classes %}
+                                 {% if entity.applicationProfileLabel[language] %}
+                                    {% set entitylabel = entity.applicationProfileLabel[language] %}
+                                 {% else %}
+                                    {% set entitylabel = "ERROR" %}
+                                 {% endif %}
+                                 <div class="vl-region vl-region.vl-region--no-space-top">
+                                    <h3 class="vl-title--h3" id="{{ entity.id }}">
+                                       <a href="{{ entity.id }}" class="js-vl-tooltip" data-vl-tooltip-content="{{ entity.id }}" id="{{ entitylabel | generateAnchorTag() }}" data-vl-tooltip-placement="right">
+                                          {{ entitylabel }}</a>
+                                    </h3>
+                                    <div class="">
+                                       <dl>
+                                          <dt>Beschreibung</dt>
                                     <dd>
                                        {% if entity.applicationProfileDefinition[language] %}
                                           {{ entity.applicationProfileDefinition[language] }}
@@ -331,9 +335,10 @@
                                        </dd>
                                     {% endif %}
                                     {% if ((entity.parents | length) > 0 ) %}
-                                       <dt>Unterklasse von</dt>
-                                       <dd>
-                                          {%- for parent in entity['parents'] %}
+                                             <dt>Unterklasse von
+                                             </dt>
+                                             <dd>
+                                                {%- for parent in entity['parents'] %}
                                              <a href="#{{ parent.applicationProfileLabel[language] | generateAnchorTag() }}">
                                                 {{ parent.applicationProfileLabel[language] }}</a>
                                              {% if not loop.last %},
@@ -557,12 +562,12 @@
                            {% endfor %}
                         {% endif %}
                         <div class="vl-region vl-region.vl-region--no-space-top" id="jsonld">
-                           <h2 class="vl-title--h2" aria-level="1" role="heading" id="h2_sotd">JSON-LD-Kontext</h2>
+                           <h2 class="vl-title--h2" aria-level="1" role="heading" id="h2_sotd">JSON-LD context</h2>
                            (nicht normativ)
                            {% block jsonld %}
                               <p>Eine wiederverwendbare JSON-LD-Kontextdefinition für dieses Anwendungsprofil finden Sie unter:
                                  <a href="{{ data.metadata.documentroot }}/context/{{ data.metadata.filename }}.jsonld" target="_blank">
-                                    {{ data.metadata.documentroot }}/context/ {{ data.metadata.filename }}.jsonld</a>
+                                    {{ data.metadata.documentroot }}/context/{{ data.metadata.filename }}.jsonld</a>
                               </p>
                            {% endblock %}
                         </div>
@@ -572,17 +577,16 @@
                            {% block shacl %}
                               <p>Eine wiederverwendbare SHACL-Vorlagendefinition für dieses Anwendungsprofil finden Sie unter:
                                  <a href="{{ data.metadata.documentroot }}/shacl/{{ data.metadata.filename }}-SHACL.ttl" target="_blank">
-                                    {{ data.metadata.documentroot }}/shacl/ {{ data.metadata.filename }}-SHACL.ttl</a>
+                                    {{ data.metadata.documentroot }}/shacl/{{ data.metadata.filename }}-SHACL.ttl</a>
                               </p>
                            {% endblock %}
                         </div>
                         <div class="vl-region vl-region.vl-region--no-space-top" id="mappingext">
-                           <h2 class="vl-title--h2" aria-level="1" role="heading" id="h2_sotd">verwendete (externe) Terminologie</h2>
-                           <p>Dieser Abschnitt bietet einen Überblick darüber, wie die Vokabularterminologie in diesem Anwendungsprofil verwendet
-                              wurde.
+                           <h2 class="vl-title--h2" aria-level="1" role="heading" id="h2_sotd">Verwendete (externe) Terminologie</h2>
+                           <p>Dieser Abschnitt gibt einen Überblick darüber, wie Terminologie aus Vokabularien in diesem Modell verwendet wurde.
                            </p>
                            <p>
-                              Dieses Anwendungsprofil basiert auf Begriffen aus diesen selbstverwalteten Vokabularien:
+                              Dieses Implementierungsmodell stützt sich auf Begriffe aus diesen selbst verwalteten Vokabularen:
                               <ul>
                                  {% for ns in data.metadata.inDomainNamespaces %}
                                     <li>
@@ -591,21 +595,13 @@
                                  {% endfor %}
                               </ul>
                            </p>
-                           <p>Für Vokabularbegriffe außerhalb des Namensraums nimmt {{ data.metadata.uridomain }} die Form einer Zuordnung an: for
-                              Die in diesem Abschnitt aufgeführten Begriffe wurden so ausgewählt, dass sie eine Begriffskennung (die URI) aus
-                              Vokabularien verwenden, die dies nicht sind fallen unter die Leitung von Data.vlaanderen.be.
+                           <p>Externe Terminologie, die außerhalb des eigenen Namensraums {{ data.metadata.uridomain }} liegt, wird in der folgenden Tabelle mit der Bezeichnung, 
+                           wie sie im Modell zu finden ist, und der zugehörigen URI aufgeführt.
                            </p>
-                           <p>Diese Form der Wiederverwendung bedeutet die Zustimmung zu den zugrunde liegenden Definitionen, Bezeichnungen und
-                              Einschränkungen mit dem URI im Kontext dieses Anwendungsprofils verknüpft. Das bedeutet, dass man die oben genannten
-                              Definitionen und Bezeichnungen verwenden muss und Nutzungshinweise sollten denen der URI nicht widersprechen.
-                           </p>
-                           <p>Diese Zuordnung ist jedoch eine für dieses Anwendungsprofil gültige Auswahl. Aber es ist ein starker Hinweis darauf
-                              Mapping kann auch in anderen, verwandten Bereichen angewendet werden. Eine Änderung der Zuordnung ist keine semantische
-                              Änderung des Anwendungsprofils, kann jedoch erhebliche Auswirkungen auf die Implementierung haben. Mit der Zuordnung
-                              unten Die Auswirkungen können klar und eindeutig beschrieben werden.
-                           </p>
-                           <p>Beachten Sie, dass die Notwendigkeit einer Mapping-Änderung oft auch semantische Anpassungen mit sich bringt bringt.
-                              Daher ist es sinnvoll, Änderungen in das normale Änderungsmanagement der Norm einzubeziehen.
+                           <p>
+                           Bei der Wiederverwendung externer Terminologie werden die Grundsätze des <a href="https://semiceu.github.io/style-guide/1.0.0/index.html" target="_blank">SEMIC Style Guide</a> angewendet. 
+                           Das bedeutet: Man erklärt sich mit der zugrunde liegenden Definition, den Bezeichnungen und den Einschränkungen einverstanden, die mit der 
+                           URI im Kontext des Implementierungsmodells verbunden sind. Die Definitionen, Bezeichnungen und Verwendungshinweise dürfen also nicht im Widerspruch zu denen der URI stehen. 
                            </p>
                            <table class="definition external">
                               <thead>
@@ -725,8 +721,6 @@
             <script src="https://prod.widgets.burgerprofiel.vlaanderen.be/api/v1/widget/f1d7f80f-ad17-4f25-92b4-027a99785068/embed"></script>
             <!-- End global footer-->
          </div>
-         <script src="https://data.vlaanderen.be/assets/dist/core.js"></script>
-         <script src="https://data.vlaanderen.be/assets/dist/tooltip.js"></script>
          <style>
             .external {
                line-break: anywhere;
@@ -765,6 +759,8 @@
                max-width: 128rem;
             }
          </style>
+         <script src="https://data.vlaanderen.be/assets/dist/core.js"></script>
+         <script src="https://data.vlaanderen.be/assets/dist/tooltip.js"></script>
       </body>
    </html>
 </html>
