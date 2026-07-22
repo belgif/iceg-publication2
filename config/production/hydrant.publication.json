@@ -4,7 +4,7 @@
     "repository": "https://github.com/belgif/ICEGthema-hydrant",
     "branchtag": "main",
     "name": "hydrant",
-    "filename": "config/hydrant.json",
+    "filename": "config/hydrants-ap.json",
     "dummy": "007"
   }
 ]
