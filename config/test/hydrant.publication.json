@@ -3,7 +3,7 @@
     "urlref": "/thematic/models/hydrant",
     "repository": "https://github.com/belgif/ICEGthema-hydrant",
     "branchtag": "main",
-    "name": "Application Profile Hydrants",
+    "name": "hydrant",
     "filename": "config/hydrants-ap.json",
     "dummy": "008"
   }
