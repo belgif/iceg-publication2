@@ -1,10 +1,10 @@
 [
   {
-    "urlref": "/thematic/models/hydrant",
+    "urlref": "/thematic/models/hydrants",
     "repository": "https://github.com/belgif/ICEGthema-hydrant",
     "branchtag": "main",
     "name": "hydrant",
     "filename": "config/hydrants-ap.json",
-    "dummy": "009"
+    "dummy": "010"
   }
 ]
